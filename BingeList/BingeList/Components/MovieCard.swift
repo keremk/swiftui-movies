@@ -20,18 +20,19 @@ struct MovieCard: View {
     var body: some View {
         HStack {
             MoviePoster(imageLoader: imageLoader)
-            VStack {
+            Spacer()
+            VStack (alignment: .leading) {
                 Text("\(movie.title)")
-                Spacer()
+                    .font(.title)
                 HStack {
                     Text("\(movie.tagline)")
                         .font(.subheadline)
                     Spacer()
                     Text("\(movie.releaseYear)")
                         .font(.subheadline)
-                        .foregroundColor(.red)
                 }
             }
+            .padding()
         }
     }
 }

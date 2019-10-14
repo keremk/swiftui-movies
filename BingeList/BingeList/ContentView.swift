@@ -18,8 +18,9 @@ struct ContentView: View {
                 .font(.title)
                 .tabItem {
                     VStack {
-                        Image("first")
-                        Text("First")
+                        Image(systemName: "film")
+                            .imageScale(.medium)
+                        Text("Search")
                     }
                 }
                 .tag(0)
@@ -27,8 +28,9 @@ struct ContentView: View {
                 .font(.title)
                 .tabItem {
                     VStack {
-                        Image("second")
-                        Text("Second")
+                        Image(systemName: "bookmark.fill")
+                            .imageScale(.medium)
+                        Text("Bookmarks")
                     }
                 }
                 .tag(1)

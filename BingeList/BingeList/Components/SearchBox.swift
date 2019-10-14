@@ -15,6 +15,7 @@ struct SearchBox: View {
         HStack {
             TextField("Search", text: $searchInput)
         }
+        .padding()
     }
 }
 

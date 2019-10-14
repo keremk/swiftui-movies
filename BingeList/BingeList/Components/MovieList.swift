@@ -10,7 +10,11 @@ import SwiftUI
 
 struct MovieListEmpty: View {
     var body: some View {
-        Text("No Movies")
+        VStack {
+            Spacer()
+            Text("No Movies")
+            Spacer()
+        }
     }
 }
 
@@ -18,12 +22,14 @@ struct MovieList: View {
     @Binding var movieList: [Movie]
     
     var body: some View {
-        List {
+        ZStack {
             if movieList.isEmpty {
                 MovieListEmpty()
             } else {
-                ForEach(movieList) { movie in
-                    MovieCard(movie: movie)
+                List (movieList) { movie in
+                    NavigationLink(destination: MovieDetailView(movie: movie)) {
+                        MovieCard(movie: movie)
+                    }
                 }
             }
         }

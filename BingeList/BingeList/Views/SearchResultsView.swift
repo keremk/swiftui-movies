@@ -12,10 +12,15 @@ struct SearchResultsView: View {
     @EnvironmentObject private var searchResults: SearchResults
         
     var body: some View {
-        VStack {
-            SearchBox(searchInput: $searchResults.searchTerm)
-            MovieList(movieList: $searchResults.movies)
+        NavigationView {
+            VStack {
+                SearchBox(searchInput: $searchResults.searchTerm)
+                MovieList(movieList: $searchResults.movies)
+                Spacer()
+            }
+            .navigationBarTitle(Text("Movies"))
         }
+        
     }
 }
 

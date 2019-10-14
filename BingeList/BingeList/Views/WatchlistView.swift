@@ -9,8 +9,16 @@
 import SwiftUI
 
 struct WatchlistView: View {
+    @EnvironmentObject private var searchResults: SearchResults
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                MovieList(movieList: $searchResults.movies)
+                Spacer()
+            }
+            .navigationBarTitle(Text("Bookmarks"))
+        }
     }
 }
 
