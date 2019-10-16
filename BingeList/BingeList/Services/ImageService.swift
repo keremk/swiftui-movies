@@ -20,7 +20,7 @@ protocol ImageServicable {
 enum TMDBPosterSize: String, ImageSizeable {
     case original
     case small = "w154"
-    case medium = "w342"
+    case medium = "w500"
     case large = "w780"
 
     func getSizeString() -> String {
@@ -49,11 +49,14 @@ class TMDBImageService: ImageServicable {
 
     func fetchImage(path: String, size: ImageSizeable) -> AnyPublisher<UIImage?, Never> {
         let urlString = "\(baseURL)\(size.getSizeString())\(path)"
+        debugLog(urlString)
         return session.dataTaskPublisher(for: URL(string: urlString)!)
-            .tryMap { (data, _) -> UIImage? in
+            .tryMap { (data, _)  in
                 UIImage(data: data)
-            }.catch { _ in
-                Just(nil)
+            }.catch { error -> Just<UIImage?> in
+                print(error.localizedDescription)
+                let image: UIImage? = nil
+                return Just(image)
             }.eraseToAnyPublisher()
-    }    
+    }
 }

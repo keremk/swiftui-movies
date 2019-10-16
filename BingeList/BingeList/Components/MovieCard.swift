@@ -10,16 +10,10 @@ import SwiftUI
 
 struct MovieCard: View {
     let movie: Movie
-    private let imageLoader: ImageLoader
-
-    init(movie: Movie) {
-        self.movie = movie
-        imageLoader = ImageLoader(path: self.movie.posterPath, size: TMDBPosterSize.small)
-    }
     
     var body: some View {
         HStack {
-            MoviePoster(imageLoader: imageLoader)
+            MoviePoster(imageLoader: ImageLoader(path: movie.posterPath, size: TMDBPosterSize.small))
             Spacer()
             VStack (alignment: .leading) {
                 Text("\(movie.title)")

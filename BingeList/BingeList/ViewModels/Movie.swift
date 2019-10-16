@@ -12,11 +12,12 @@ struct Movie: Hashable, Codable, Identifiable {
     var id: Int = 0
     var title: String = ""
     var tagline: String = ""
-    var releaseYear: Int = 1900
+    var releaseYear: String = "1900"
     var originalLanguage: String = "English"
     var posterPath: String = ""
+    var cast: [Actor] = []
 
-    func cloneWithReleaseYear(_ releaseYear: Int) -> Movie {
+    func cloneWithReleaseYear(_ releaseYear: String) -> Movie {
         var m = self
         m.releaseYear = releaseYear
         return m
@@ -30,23 +31,13 @@ struct Movie: Hashable, Codable, Identifiable {
 
 }
 
-struct DataError: Error {
-    enum ErrorKind {
-        case invalidDate
-        case invalidLanguage
-        case invalidPath
-    }
-
-    let kind: ErrorKind
-    let description: String
-}
-
 func movieFromMovieItem(movieItem: MoviesResponse.MovieItem) -> Result<Movie, DataError> {
     return Result.success(Movie(
         id: movieItem.id,
         title: movieItem.title,
         tagline: movieItem.tagline,
-        posterPath: movieItem.posterPath
+        posterPath: movieItem.posterPath,
+        cast: actorsFromCastItems(movieItem.cast)
     ))
         .flatMap { movie in releaseYearFromDate(movieItem.releaseDate)
             .map { movie.cloneWithReleaseYear($0) }
@@ -56,7 +47,7 @@ func movieFromMovieItem(movieItem: MoviesResponse.MovieItem) -> Result<Movie, Da
         }
 }
 
-func releaseYearFromDate(_ releaseDate: String) -> Result<Int, DataError> {
+func releaseYearFromDate(_ releaseDate: String) -> Result<String, DataError> {
     let comps = releaseDate.split(separator: "-")
     guard comps.count == 3 else {
         return .failure(DataError(kind: .invalidDate,
@@ -71,7 +62,7 @@ func releaseYearFromDate(_ releaseDate: String) -> Result<Int, DataError> {
                                   description: "Year in \(releaseDate) is not an integer"))
     }
 
-    return .success(year)
+    return .success("\(year)")
 }
 
 func originalLanguage(_ originalLanguage: String) -> Result<String, DataError> {

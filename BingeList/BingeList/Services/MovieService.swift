@@ -94,54 +94,6 @@ func decode<T: Decodable>(_ data: Data) -> AnyPublisher<T, MovieServiceError> {
     .eraseToAnyPublisher()
 }
 
-struct MetaData: Codable {
-    let offset: Int
-    let limit: Int
-    let total: Int
-}
-
-struct MoviesResponse: Codable {
-    let metadata: MetaData
-    let data: [MovieItem]
-
-    struct MovieItem: Codable {
-        let id: Int
-        let title: String
-        let tagline: String
-        let overview: String
-        let popularity: Double
-        let rating: Double
-        let ratingCount: Int
-        let releaseDate: String
-        let runtime: Int
-        let revenue: Double
-        let budget: Double
-        let posterPath: String
-        let originalLanguage: String
-        let genres: [GenreItem]
-        let cast: [CastItem]
-    }
-    
-    struct CastItem: Codable {
-        let id: Int
-        let name: String
-        let character: String
-        let gender: Int
-        let profileImage: ProfileImage
-    }
-    
-    struct ProfileImage: Codable {
-        let fullPath: String
-        let size: String
-    }
-    
-}
-
-struct GenreItem: Codable {
-    let id: Int
-    let name: String
-}
-
 struct GenresResponse: Codable {
     
 }

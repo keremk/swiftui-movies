@@ -12,7 +12,11 @@ import SwiftUI
 struct MovieDetailView: View {
     let movie: Movie
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            MovieBanner(movie: movie)
+            Spacer()
+            ActorCarousel(actorList: movie.cast)
+        }
     }
 }
 
